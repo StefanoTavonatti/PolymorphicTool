@@ -1,4 +1,4 @@
 PolymorphicTool
 ===============
 
-a MCForge mod
+ant release to build the jar files

@@ -28,7 +28,9 @@ local.properties
 # PDT-specific
 .buildpath
 
-
+*.jar
+*.properties
+run.bat
 #################
 ## Visual Studio
 #################
