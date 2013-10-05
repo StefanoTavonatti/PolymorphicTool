@@ -1,5 +1,8 @@
 package Morpheuss93.PolymorphicTool;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -31,6 +34,8 @@ public class Polymorphic {
 		config.save();
 		BlockHandler.registerBlocks(new GameRegistry());
 		BlockHandler.setNames(new LanguageRegistry()); 
+		BlockHandler.setHarvestLevel();
+		BlockHandler.setRecipes(new GameRegistry()); 
 	}
 	
 	@EventHandler
@@ -42,5 +47,11 @@ public class Polymorphic {
 	public void postInit(FMLPostInitializationEvent event){
 		
 	}
+	
+	public static CreativeTabs tabPolymorphic = new CreativeTabs("tabPolymorphic") {
+        public ItemStack getIconItemStack() {
+                return new ItemStack(BlockHandler.bluMonomerDust, 1, 0);
+        }
+};
 
 }
