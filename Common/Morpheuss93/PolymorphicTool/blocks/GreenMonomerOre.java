@@ -9,11 +9,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.item.Item;
 
-public class BlueMonomerOre extends Block{
+public class GreenMonomerOre extends Block{
 
-	public BlueMonomerOre(int id, Material material) {
+	public GreenMonomerOre(int id, Material material) {
 		super(id, material);
 		
 	}
@@ -28,7 +27,7 @@ public class BlueMonomerOre extends Block{
 	
 	public int idDropped(int par1, Random rand,int par2){
 		
-		return BlockHandler.bluMonomerDust.itemID;
+		return BlockHandler.greenMonomerDust.itemID;
 	}
 	
 	public int quantityDropped(Random rand)

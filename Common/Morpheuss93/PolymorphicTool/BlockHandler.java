@@ -1,6 +1,7 @@
 package Morpheuss93.PolymorphicTool;
 
 import Morpheuss93.PolymorphicTool.blocks.BlueMonomerOre;
+import Morpheuss93.PolymorphicTool.blocks.GreenMonomerOre;
 import Morpheuss93.PolymorphicTool.item.dusts.BlueMonomerDust;
 import Morpheuss93.PolymorphicTool.item.dusts.GreenMonomerDust;
 import Morpheuss93.PolymorphicTool.item.monomers.BlueMonomer;
@@ -20,11 +21,13 @@ public class BlockHandler {
 	public static Block bluMonomerOre;
 	public static Item bluMonomerDust;
 	public static Item bluMonomer;
+	public static Block greenMonomerOre;
 	public static Item greenMonomerDust;
 	
 	public static int bluMonomerOreID;
 	public static int bluMonomerDustID;
 	public static int bluMonomerID;
+	public static int greenMonomerOreID;
 	public static int greenMonomerDustID;
 
 	public static void configureBlock(Configuration config){
@@ -32,6 +35,9 @@ public class BlockHandler {
 		bluMonomerOreID=config.get("Blocks", "BlueMonomerOre",3000).getInt();
 		bluMonomerOre=new BlueMonomerOre(bluMonomerOreID,Material.rock).setUnlocalizedName("BlueMonomerOre").setCreativeTab(Polymorphic.tabPolymorphic);
 		bluMonomerOre.setHardness(5.0F);
+		
+		greenMonomerOreID=config.get("Blocks", "Green Monomer Ore", 3001).getInt();
+		greenMonomerOre=new GreenMonomerOre(greenMonomerOreID,Material.rock).setUnlocalizedName("GreenMonomerOre").setCreativeTab(Polymorphic.tabPolymorphic).setHardness(5.0F); 
 		
 		/////Item/////
 		bluMonomerDustID=config.get("Items", "BlueMonomerDust", 3500).getInt();
@@ -46,6 +52,7 @@ public class BlockHandler {
 	
 	public static void registerBlocks(GameRegistry registry){
 		registry.registerBlock(bluMonomerOre,"BlueMonomerOre"); 
+		registry.registerBlock(greenMonomerOre,"GreenMonomerOre");
 		
 		///Item////
 		registry.registerItem(bluMonomerDust, "BluMonomerDust");
@@ -55,6 +62,7 @@ public class BlockHandler {
 	
 	public static void setNames(LanguageRegistry registry){
 		registry.addName(bluMonomerOre, "Blue Monomer Ore");
+		registry.addName(greenMonomerOre, "Green Monomer Ore");
 		
 		
 		////item/////
@@ -70,6 +78,7 @@ public class BlockHandler {
 	public static void setHarvestLevel()
 	{
 		MinecraftForge.setBlockHarvestLevel(bluMonomerOre, "pickaxe", 2);
+		MinecraftForge.setBlockHarvestLevel(greenMonomerOre, "pickaxe", 2);
 	}
 	
 	public static void setRecipes(GameRegistry registry)
