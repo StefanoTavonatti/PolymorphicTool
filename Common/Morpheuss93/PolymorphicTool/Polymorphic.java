@@ -36,6 +36,7 @@ public class Polymorphic {
 		BlockHandler.setNames(new LanguageRegistry()); 
 		BlockHandler.setHarvestLevel();
 		BlockHandler.setRecipes(new GameRegistry()); 
+		BlockHandler.setToolClass();
 	}
 	
 	@EventHandler
