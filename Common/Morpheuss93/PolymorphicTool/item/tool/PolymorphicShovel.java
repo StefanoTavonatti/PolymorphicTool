@@ -18,7 +18,7 @@ public class PolymorphicShovel extends ItemSpade{
 	public PolymorphicShovel(int id) {
 		super(id, BlockHandler.POLYMORPHIC);
 		
-		this.setCreativeTab(Polymorphic.tabPolymorphic);
+		//this.setCreativeTab(Polymorphic.tabPolymorphic);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -36,6 +36,19 @@ public class PolymorphicShovel extends ItemSpade{
 		if(player.isSneaking())
 			return new ItemStack(BlockHandler.polymorphicHoe,1,stack.getItemDamage());
 		else return stack;
+	}
+	
+	@Override
+	public boolean onBlockStartBreak(ItemStack itemstack,int X,int Y,int Z,EntityPlayer player){
+		
+		if(itemstack.getItem().getDamage(itemstack)>=1990)
+		{
+			player.addChatMessage("Strumento troppo Danneggiato!!!");
+			
+			return true;
+		}
+		else
+			return super.onBlockStartBreak(itemstack, X, Y, Z, player);
 	}
 
 }

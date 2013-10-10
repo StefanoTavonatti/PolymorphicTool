@@ -6,6 +6,7 @@ import Morpheuss93.PolymorphicTool.BlockHandler;
 import Morpheuss93.PolymorphicTool.Polymorphic;
 import Morpheuss93.PolymorphicTool.Reference;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
@@ -17,8 +18,8 @@ public class PolymorphicShears extends ItemShears{
 	public PolymorphicShears(int id) {
 		super(id);
 
-
-		this.setCreativeTab(Polymorphic.tabPolymorphic);
+		this.setMaxDamage(2000);
+		//this.setCreativeTab(Polymorphic.tabPolymorphic);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -36,6 +37,33 @@ public class PolymorphicShears extends ItemShears{
 		if(player.isSneaking())
 			return new ItemStack(BlockHandler.polymorphicPickaxe,1,stack.getItemDamage());
 		else return stack;
+	}
+	
+	@Override
+	public boolean onBlockStartBreak(ItemStack itemstack,int X,int Y,int Z,EntityPlayer player){
+		
+		if(itemstack.getItem().getDamage(itemstack)>=1990)
+		{
+			player.addChatMessage("Strumento troppo Danneggiato!!!");
+			
+			return true;
+		}
+		else
+			return super.onBlockStartBreak(itemstack, X, Y, Z, player);
+	}
+	
+	public boolean itemInteractionForEntity(ItemStack itemstack,
+            EntityPlayer player,
+            EntityLivingBase entity){
+		
+		
+		if(itemstack.getItem().getDamage(itemstack)>=1990)
+		{
+			return false;
+		}
+		else
+			return super.itemInteractionForEntity(itemstack, player, entity);
+		
 	}
 
 }

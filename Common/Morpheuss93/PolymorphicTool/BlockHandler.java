@@ -1,11 +1,17 @@
 package Morpheuss93.PolymorphicTool;
 
+import org.bouncycastle.asn1.cmp.GenRepContent;
+
 import Morpheuss93.PolymorphicTool.blocks.BlueMonomerOre;
 import Morpheuss93.PolymorphicTool.blocks.GreenMonomerOre;
+import Morpheuss93.PolymorphicTool.blocks.furnaces.FurnaceMK2;
 import Morpheuss93.PolymorphicTool.item.dusts.BlueMonomerDust;
 import Morpheuss93.PolymorphicTool.item.dusts.GreenMonomerDust;
 import Morpheuss93.PolymorphicTool.item.monomers.BlueMonomer;
 import Morpheuss93.PolymorphicTool.item.monomers.GreenMonomer;
+import Morpheuss93.PolymorphicTool.item.parts.ConversionMatrix;
+import Morpheuss93.PolymorphicTool.item.parts.ToolsConversionMatrix;
+import Morpheuss93.PolymorphicTool.item.parts.WeaponConversionMatrix;
 import Morpheuss93.PolymorphicTool.item.polymers.GenericPolymer;
 import Morpheuss93.PolymorphicTool.item.polymers.ShapeMemoryPolymer;
 import Morpheuss93.PolymorphicTool.item.tool.PolymorphicAxe;
@@ -14,6 +20,7 @@ import Morpheuss93.PolymorphicTool.item.tool.PolymorphicPickaxe;
 import Morpheuss93.PolymorphicTool.item.tool.PolymorphicShears;
 import Morpheuss93.PolymorphicTool.item.tool.PolymorphicShovel;
 import Morpheuss93.PolymorphicTool.item.tool.PolymorphicSword;
+import Morpheuss93.PolymorphicTool.WorldGenerators.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,6 +31,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -43,6 +51,10 @@ public class BlockHandler {
 	public static Item polymorphicShears;
 	public static Item polymorphicShovel;
 	public static Item polymorphicSword;
+	public static Item conversionMatrix;
+	public static Item toolConversionMatrix;
+	public static Item weaponConversionMatrix;
+	public static Block	furnaceMk2;
 	
 	public static int bluMonomerOreID;
 	public static int bluMonomerDustID;
@@ -58,17 +70,35 @@ public class BlockHandler {
 	public static int polymorphicShearsID;
 	public static int polymorphicShovelID;
 	public static int polymorphicSwordID;
+	public static int conversionMatrixID;
+	public static int toolConversionMatrixID;
+	public static int weaponConversionMatrixID;
+	public static int furnaceMk2ID;
+	
+	public static int blueMonomerOreVeins;
+	public static int greenMonomerOreVeins;
+	public static int blueMonomerOreBlockXVeins;
+	public static int greenMonomerOreBlockXVeins;
 	
 	public static EnumToolMaterial POLYMORPHIC = EnumHelper.addToolMaterial("POLYMORPHIC", 4, 2000, 8.0F, 6, 22);
 
 	public static void configureBlock(Configuration config){
 		
+		
+		
 		bluMonomerOreID=config.get("Blocks", "BlueMonomerOre",3000).getInt();
 		bluMonomerOre=new BlueMonomerOre(bluMonomerOreID,Material.rock).setUnlocalizedName("BlueMonomerOre").setCreativeTab(Polymorphic.tabPolymorphic);
 		bluMonomerOre.setHardness(5.0F);
 		
-		greenMonomerOreID=config.get("Blocks", "Green Monomer Ore", 3001).getInt();
-		greenMonomerOre=new GreenMonomerOre(greenMonomerOreID,Material.rock).setUnlocalizedName("GreenMonomerOre").setCreativeTab(Polymorphic.tabPolymorphic).setHardness(5.0F); 
+		greenMonomerOreID=config.get("Blocks", "GreenMonomerOre", 3001).getInt();
+		greenMonomerOre=new GreenMonomerOre(greenMonomerOreID,Material.rock).setUnlocalizedName("GreenMonomerOre").setCreativeTab(Polymorphic.tabPolymorphic).setHardness(5.0F);
+		
+		furnaceMk2ID=config.get("Blocks", "FurnaceMk2", 3002).getInt();
+		furnaceMk2=new FurnaceMK2(furnaceMk2ID).setUnlocalizedName("FurnaceMK2").setCreativeTab(Polymorphic.tabPolymorphic);
+		
+		OreDictionary.registerOre("OreBluMonomer", new ItemStack(bluMonomerOre));
+		OreDictionary.registerOre("OreGreenMonomerr", new ItemStack(greenMonomerOre));//completare gli altri
+		//OreDictionary.registerOre("OreGreenMonomer", new ItemStack(ingotCopper));
 		
 		/////Item/////
 		bluMonomerDustID=config.get("Items", "BlueMonomerDust", 3500).getInt();
@@ -92,25 +122,42 @@ public class BlockHandler {
 		polymorphicPickaxeID=config.get("Items", "polymorphicPickaxe", 3506).getInt();
 		polymorphicPickaxe=new PolymorphicPickaxe(polymorphicPickaxeID).setUnlocalizedName("PolymorphicPickaxe");
 		
-		polymorphicAxeID=config.get("Item", "PolymorphicAxe", 3507).getInt();
+		polymorphicAxeID=config.get("Items", "PolymorphicAxe", 3507).getInt();
 		polymorphicAxe=new PolymorphicAxe(polymorphicAxeID).setUnlocalizedName("PolymorphicAxe");
 		
-		polymorphicHoeID=config.get("Item", "PolymorphicHoe", 3508).getInt();
+		polymorphicHoeID=config.get("Items", "PolymorphicHoe", 3508).getInt();
 		polymorphicHoe=new PolymorphicHoe(polymorphicHoeID).setUnlocalizedName("PolymorphicHoe");
 		
-		polymorphicShearsID=config.get("Item", "PolymorphicShears", 3509).getInt();
+		polymorphicShearsID=config.get("Items", "PolymorphicShears", 3509).getInt();
 		polymorphicShears=new PolymorphicShears(polymorphicShearsID).setUnlocalizedName("PolymorphicShears");
 		
-		polymorphicShovelID=config.get("Item", "PolymorphicShovel", 3510).getInt();
+		polymorphicShovelID=config.get("Items", "PolymorphicShovel", 3510).getInt();
 		polymorphicShovel=new PolymorphicShovel(polymorphicShovelID).setUnlocalizedName("PolymorphicShovel");
 		
-		polymorphicSwordID=config.get("Item", "PolymorphicSword", 3511).getInt();
+		polymorphicSwordID=config.get("Items", "PolymorphicSword", 3511).getInt();
 		polymorphicSword=new PolymorphicSword(polymorphicSwordID).setUnlocalizedName("PolymorphicSword");
+		
+		conversionMatrixID=config.get("Items", "ConversionMatrix", 3512).getInt();
+		conversionMatrix=new ConversionMatrix(conversionMatrixID).setUnlocalizedName("ConversionMatrix");
+		
+		toolConversionMatrixID=config.get("Items", "ToolConversionMatrix", 3513).getInt();
+		toolConversionMatrix=new ToolsConversionMatrix(toolConversionMatrixID).setUnlocalizedName("ToolConversionMatrix");
+		
+		weaponConversionMatrixID=config.get("Items", "WeaponConversionMatrix", 3514).getInt();
+		weaponConversionMatrix=new WeaponConversionMatrix(weaponConversionMatrixID).setUnlocalizedName("WeaponConversionMatrix");
+	
+		blueMonomerOreVeins=config.get("OreGenerator", "BlueMonomerOreVeins",25).getInt();
+		greenMonomerOreVeins=config.get("OreGenerator", "GreenMonomerOreVeins",25).getInt();
+		blueMonomerOreBlockXVeins=config.get("OreGenerator", "BlueMonomerOreBlockXVeins",8).getInt();
+		greenMonomerOreBlockXVeins=config.get("OreGenerator", "GreenMonomerOreBlockXVeins",8).getInt();
+		
+		
 	}
 	
 	public static void registerBlocks(GameRegistry registry){
 		registry.registerBlock(bluMonomerOre,"BlueMonomerOre"); 
 		registry.registerBlock(greenMonomerOre,"GreenMonomerOre");
+		registry.registerBlock(furnaceMk2,"furnaceMk2");
 		
 		///Item////
 		registry.registerItem(bluMonomerDust, "BluMonomerDust");
@@ -125,11 +172,15 @@ public class BlockHandler {
 		registry.registerItem(polymorphicShears, "PolymorphicShears");
 		registry.registerItem(polymorphicShovel, "PolymorphicShovel");
 		registry.registerItem(polymorphicSword, "PolymorphicSword");
+		registry.registerItem(conversionMatrix, "ConversionMatrix");
+		registry.registerItem(toolConversionMatrix, "ToolConversionMatrix");
+		registry.registerItem(weaponConversionMatrix, "WeaponConversionMatrix");
 	}
 	
 	public static void setNames(LanguageRegistry registry){
 		registry.addName(bluMonomerOre, "Blue Monomer Ore");
 		registry.addName(greenMonomerOre, "Green Monomer Ore");
+		registry.addName(furnaceMk2, "FurnaceMk2");
 		
 		
 		////item/////
@@ -139,12 +190,15 @@ public class BlockHandler {
 		registry.addName(greenMonomer, "Green Monomer");
 		registry.addName(genericPolymer, "Generic Polymer");
 		registry.addName(shapeMemoryPolymer, "Shape Memory Polymer");
-		registry.addName(polymorphicPickaxe, "Polymorphic Pickaxe");
-		registry.addName(polymorphicAxe, "Polymorphic Axe");
-		registry.addName(polymorphicHoe, "Polymorphic Hoe");
-		registry.addName(polymorphicShovel, "Polymorphic Shovel");
-		registry.addName(polymorphicShears, "Polymorphic Shears");
-		registry.addName(polymorphicSword, "Polymorphic Sword");
+		registry.addName(polymorphicPickaxe, "Polymorphic Tool (Pickaxe)");
+		registry.addName(polymorphicAxe, "Polymorphic Tool (Axe)");
+		registry.addName(polymorphicHoe, "Polymorphic Tool (Hoe)");
+		registry.addName(polymorphicShovel, "Polymorphic Tool (Shovel)");
+		registry.addName(polymorphicShears, "Polymorphic Tool (Shears)");
+		registry.addName(polymorphicSword, "Polymorphic Tool (Sword)");
+		registry.addName(conversionMatrix, "Conversion Matrix");
+		registry.addName(toolConversionMatrix, "Tool Conversion Matrix");
+		registry.addName(weaponConversionMatrix, "Weapon Conversion Matrix");
 		
 		
 		///tab/////
@@ -155,13 +209,18 @@ public class BlockHandler {
 	{
 		MinecraftForge.setBlockHarvestLevel(bluMonomerOre, "pickaxe", 2);
 		MinecraftForge.setBlockHarvestLevel(greenMonomerOre, "pickaxe", 2);
+		MinecraftForge.setBlockHarvestLevel(furnaceMk2, "pickaxe", 1);
 	}
 	
 	public static void setRecipes(GameRegistry registry)
 	{
 		//registry.addRecipe(new ItemStack(bluMonomerOre),new Object[] {" i ",'i',Block.cobblestone }); 
-		registry.addShapelessRecipe(new ItemStack(genericPolymer),new Object[] {new ItemStack(greenMonomer),new ItemStack(bluMonomer)});
+		//registry.addShapelessRecipe(new ItemStack(genericPolymer),new Object[] {new ItemStack(greenMonomer),new ItemStack(bluMonomer)});
+		registry.addRecipe(new ItemStack(genericPolymer), new Object[]{"iii","ijj","jj ",'i',bluMonomer,'j',greenMonomer});
 		registry.addShapelessRecipe(new ItemStack(shapeMemoryPolymer), new Object[]{new ItemStack(genericPolymer), new ItemStack(Item.redstone)});
+		registry.addRecipe(new ItemStack(conversionMatrix),new Object[]{"grg","rdr","grg",'d',Item.diamond,'r',Item.redstone,'g',Item.ingotGold});
+		registry.addRecipe(new ItemStack(toolConversionMatrix),new Object[]{"pas","hcf",'p',Item.pickaxeWood,'a',Item.axeWood,'s',Item.shovelWood,'h',Item.hoeWood,'c',conversionMatrix,'f',Item.shears});
+		registry.addRecipe(new ItemStack(polymorphicPickaxe),new Object[]{"ppp","pcp","ppp",'p',shapeMemoryPolymer,'c',toolConversionMatrix});
 		
 		setSmeltingRecipes(registry);
 	}
@@ -183,6 +242,12 @@ public class BlockHandler {
 		//MinecraftForge.setToolClass(polymorphicShears, "shears", POLYMORPHIC.getHarvestLevel());
 		MinecraftForge.setToolClass(polymorphicShovel, "shovel", POLYMORPHIC.getHarvestLevel());
 		MinecraftForge.setToolClass(polymorphicSword, "sword", POLYMORPHIC.getHarvestLevel());
+		
+	}
+	
+	public static void setWorldGenerator(GameRegistry registry){
+		registry.registerWorldGenerator(new WorldGenaratorBluMonomer());
+		//registry.registerWorldGenerator(new WorldGeneratorGreenMonomer());
 		
 	}
 	

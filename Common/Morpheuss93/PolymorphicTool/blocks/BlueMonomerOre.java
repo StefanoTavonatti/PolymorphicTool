@@ -33,7 +33,7 @@ public class BlueMonomerOre extends Block{
 	
 	public int quantityDropped(Random rand)
 	{
-		return 4;
+		return 2;
 	}
 
 }

@@ -1,9 +1,12 @@
 package Morpheuss93.PolymorphicTool;
 
+import Morpheuss93.PolymorphicTool.Gui.GuiDamage;
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -37,16 +40,17 @@ public class Polymorphic {
 		BlockHandler.setHarvestLevel();
 		BlockHandler.setRecipes(new GameRegistry()); 
 		BlockHandler.setToolClass();
+		BlockHandler.setWorldGenerator(new GameRegistry());
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event){
-		
+		//proxy.registerRenders();
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
-		
+		// MinecraftForge.EVENT_BUS.register(new GuiDamage(Minecraft.getMinecraft()));
 	}
 	
 	public static CreativeTabs tabPolymorphic = new CreativeTabs("tabPolymorphic") {

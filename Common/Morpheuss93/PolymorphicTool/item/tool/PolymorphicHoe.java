@@ -7,7 +7,9 @@ import Morpheuss93.PolymorphicTool.Polymorphic;
 import Morpheuss93.PolymorphicTool.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
@@ -21,7 +23,7 @@ public class PolymorphicHoe extends ItemHoe{
 	public PolymorphicHoe(int id) {
 		super(id,BlockHandler.POLYMORPHIC);
 
-		this.setCreativeTab(Polymorphic.tabPolymorphic);
+		//this.setCreativeTab(Polymorphic.tabPolymorphic);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -40,6 +42,45 @@ public class PolymorphicHoe extends ItemHoe{
 			return new ItemStack(BlockHandler.polymorphicShears,1,stack.getItemDamage());
 		else return stack;
 	}
+	
+	@Override
+	public boolean onBlockStartBreak(ItemStack itemstack,int X,int Y,int Z,EntityPlayer player){
+		
+		if(itemstack.getItem().getDamage(itemstack)>=1990)
+		{
+			player.addChatMessage("Strumento troppo Danneggiato!!!");
+			
+			return true;
+		}
+		else
+			return super.onBlockStartBreak(itemstack, X, Y, Z, player);
+	}
+	
+	public boolean itemInteractionForEntity(ItemStack itemstack,
+            EntityPlayer player,
+            EntityLivingBase entity){
+		
+		
+		if(itemstack.getItem().getDamage(itemstack)>=1990)
+			return false;
+		else
+			return super.itemInteractionForEntity(itemstack, player, entity);
+		
+	}
+	
+	
+	/*public boolean onLeftClickEntity(ItemStack stack, //per la spada
+            EntityPlayer player,
+            Entity entity)
+{
+		
+		
+		if(stack.getItem().getDamage(stack)>=1990)
+			return true;
+		else
+			return super.onLeftClickEntity(stack, player, entity);
+		
+	}*/
 	
 	
 

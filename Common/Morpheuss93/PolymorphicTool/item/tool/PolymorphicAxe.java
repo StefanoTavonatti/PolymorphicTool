@@ -18,7 +18,7 @@ public class PolymorphicAxe extends ItemAxe{
 	public PolymorphicAxe(int id) {
 		super(id, BlockHandler.POLYMORPHIC);
 		
-		this.setCreativeTab(Polymorphic.tabPolymorphic);
+		//this.setCreativeTab(Polymorphic.tabPolymorphic);
 		
 	}
 	
@@ -37,6 +37,19 @@ public class PolymorphicAxe extends ItemAxe{
 		if(player.isSneaking())
 			return new ItemStack(BlockHandler.polymorphicShovel,1,stack.getItemDamage());
 		else return stack;
+	}
+	
+	@Override
+	public boolean onBlockStartBreak(ItemStack itemstack,int X,int Y,int Z,EntityPlayer player){
+		
+		if(itemstack.getItem().getDamage(itemstack)>=1990)
+		{
+			player.addChatMessage("Strumento troppo Danneggiato!!!");
+			
+			return true;
+		}
+		else
+			return super.onBlockStartBreak(itemstack, X, Y, Z, player);
 	}
 
 }

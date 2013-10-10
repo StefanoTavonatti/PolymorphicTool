@@ -6,6 +6,7 @@ import Morpheuss93.PolymorphicTool.BlockHandler;
 import Morpheuss93.PolymorphicTool.Polymorphic;
 import Morpheuss93.PolymorphicTool.Reference;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
@@ -35,7 +36,46 @@ public class PolymorphicPickaxe extends ItemPickaxe{
 	{
 		if(player.isSneaking())
 			return new ItemStack(BlockHandler.polymorphicAxe,1,stack.getItemDamage());
-		else return stack;
+		else 
+		{
+			//stack.getItem().setDamage(stack, 1991);
+			//player.addChatMessage(""+stack.getItem().getDamage(stack));
+			
+			return stack;
+		}
 	}
+	
+	@Override
+	public boolean onBlockStartBreak(ItemStack itemstack,int X,int Y,int Z,EntityPlayer player){
+		
+		if(itemstack.getItem().getDamage(itemstack)>=1990)
+		{
+			player.addChatMessage("Strumento troppo Danneggiato!!!");
+			
+			return true;
+		}
+		else
+			return super.onBlockStartBreak(itemstack, X, Y, Z, player);
+	}
+	
+	/*@Override
+	public boolean onBlockDestroyed(ItemStack par1ItemStack,
+            World par2World,
+            int par3,
+            int par4,
+            int par5,
+            int par6,
+            EntityLiving par7EntityLivingBase){
+		System.out.println("dentro funz");
+		if(par1ItemStack.getItem().getDamage(par1ItemStack)>=1990)
+		{
+			//par7EntityLivingBase.inventory.changeCurrentItem(BlockHandler.polymorphicSwordID);
+			par1ItemStack=new ItemStack(Item.diamond,2);
+			System.out.println("dentro if");
+			return false;
+		}
+		else
+			return super.onBlockDestroyed(par1ItemStack, par2World, par3, par4, par5, par6, par7EntityLivingBase);
+	}*/
 
 }
