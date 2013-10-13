@@ -4,6 +4,7 @@ import org.bouncycastle.asn1.cmp.GenRepContent;
 
 import Morpheuss93.PolymorphicTool.blocks.BlueMonomerOre;
 import Morpheuss93.PolymorphicTool.blocks.GreenMonomerOre;
+import Morpheuss93.PolymorphicTool.blocks.furnaces.AlloyFurnace;
 import Morpheuss93.PolymorphicTool.blocks.furnaces.FurnaceMK2;
 import Morpheuss93.PolymorphicTool.item.dusts.BlueMonomerDust;
 import Morpheuss93.PolymorphicTool.item.dusts.GreenMonomerDust;
@@ -15,6 +16,7 @@ import Morpheuss93.PolymorphicTool.item.parts.WeaponConversionMatrix;
 import Morpheuss93.PolymorphicTool.item.polymers.GenericPolymer;
 import Morpheuss93.PolymorphicTool.item.polymers.ShapeMemoryPolymer;
 import Morpheuss93.PolymorphicTool.item.tool.PolymorphicAxe;
+import Morpheuss93.PolymorphicTool.item.tool.PolymorphicBow;
 import Morpheuss93.PolymorphicTool.item.tool.PolymorphicHoe;
 import Morpheuss93.PolymorphicTool.item.tool.PolymorphicPickaxe;
 import Morpheuss93.PolymorphicTool.item.tool.PolymorphicShears;
@@ -55,6 +57,9 @@ public class BlockHandler {
 	public static Item toolConversionMatrix;
 	public static Item weaponConversionMatrix;
 	public static Block	furnaceMk2;
+	public static Item polymorphicBow;
+	public static Block AlloyFurnaceIdle;
+	public static Block AlloyFurnaceActive;
 	
 	public static int bluMonomerOreID;
 	public static int bluMonomerDustID;
@@ -74,6 +79,9 @@ public class BlockHandler {
 	public static int toolConversionMatrixID;
 	public static int weaponConversionMatrixID;
 	public static int furnaceMk2ID;
+	public static int polymorphicBowID;
+	public static int AlloyFurnaceIdleID;
+	public static int AlloyFurnaceActiveID;
 	
 	public static int blueMonomerOreVeins;
 	public static int greenMonomerOreVeins;
@@ -99,6 +107,11 @@ public class BlockHandler {
 		OreDictionary.registerOre("OreBluMonomer", new ItemStack(bluMonomerOre));
 		OreDictionary.registerOre("OreGreenMonomerr", new ItemStack(greenMonomerOre));//completare gli altri
 		//OreDictionary.registerOre("OreGreenMonomer", new ItemStack(ingotCopper));
+		
+		AlloyFurnaceIdleID=config.get("Blocks", "AlloyFurnaceIdle", 3003).getInt();
+		AlloyFurnaceActiveID=config.get("Blocks", "AlloyFurnaceActive", 3004).getInt();		
+		AlloyFurnaceIdle=new AlloyFurnace(AlloyFurnaceIdleID,false).setUnlocalizedName("AlloyFurnaceIdle").setHardness(3.5F);
+		AlloyFurnaceActive=new AlloyFurnace(AlloyFurnaceActiveID,true).setUnlocalizedName("AlloyFurnaceActive").setHardness(3.5F).setLightValue(0.9F);
 		
 		/////Item/////
 		bluMonomerDustID=config.get("Items", "BlueMonomerDust", 3500).getInt();
@@ -146,6 +159,9 @@ public class BlockHandler {
 		weaponConversionMatrixID=config.get("Items", "WeaponConversionMatrix", 3514).getInt();
 		weaponConversionMatrix=new WeaponConversionMatrix(weaponConversionMatrixID).setUnlocalizedName("WeaponConversionMatrix");
 	
+		polymorphicBowID=config.get("Items", "PolymorphicBow", 3515).getInt();
+		polymorphicBow=new PolymorphicBow(polymorphicBowID).setUnlocalizedName("PolymorphicBow");
+		
 		blueMonomerOreVeins=config.get("OreGenerator", "BlueMonomerOreVeins",25).getInt();
 		greenMonomerOreVeins=config.get("OreGenerator", "GreenMonomerOreVeins",25).getInt();
 		blueMonomerOreBlockXVeins=config.get("OreGenerator", "BlueMonomerOreBlockXVeins",8).getInt();
@@ -158,6 +174,8 @@ public class BlockHandler {
 		registry.registerBlock(bluMonomerOre,"BlueMonomerOre"); 
 		registry.registerBlock(greenMonomerOre,"GreenMonomerOre");
 		registry.registerBlock(furnaceMk2,"furnaceMk2");
+		registry.registerBlock(AlloyFurnaceIdle,"AlloyFurnaceIdle");
+		registry.registerBlock(AlloyFurnaceActive,"AlloyFurnaceActive");
 		
 		///Item////
 		registry.registerItem(bluMonomerDust, "BluMonomerDust");
@@ -175,6 +193,7 @@ public class BlockHandler {
 		registry.registerItem(conversionMatrix, "ConversionMatrix");
 		registry.registerItem(toolConversionMatrix, "ToolConversionMatrix");
 		registry.registerItem(weaponConversionMatrix, "WeaponConversionMatrix");
+		registry.registerItem(polymorphicBow, "PolymorphicBow");
 	}
 	
 	public static void setNames(LanguageRegistry registry){
@@ -199,6 +218,7 @@ public class BlockHandler {
 		registry.addName(conversionMatrix, "Conversion Matrix");
 		registry.addName(toolConversionMatrix, "Tool Conversion Matrix");
 		registry.addName(weaponConversionMatrix, "Weapon Conversion Matrix");
+		registry.addName(polymorphicBow, "Polymorphic Bow");
 		
 		
 		///tab/////
