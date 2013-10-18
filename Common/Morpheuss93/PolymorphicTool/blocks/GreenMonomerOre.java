@@ -27,12 +27,14 @@ public class GreenMonomerOre extends Block{
 	
 	public int idDropped(int par1, Random rand,int par2){
 		
-		return BlockHandler.greenMonomerDust.itemID;
+		//return BlockHandler.greenMonomerDust.itemID;
+		return this.blockID;
 	}
 	
 	public int quantityDropped(Random rand)
 	{
-		return 2;
+		//return 2;
+		return 1;
 	}
 
 }

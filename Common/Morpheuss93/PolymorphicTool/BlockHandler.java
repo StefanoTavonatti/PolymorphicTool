@@ -6,6 +6,7 @@ import Morpheuss93.PolymorphicTool.blocks.BlueMonomerOre;
 import Morpheuss93.PolymorphicTool.blocks.GreenMonomerOre;
 import Morpheuss93.PolymorphicTool.blocks.furnaces.AlloyFurnace;
 import Morpheuss93.PolymorphicTool.blocks.furnaces.FurnaceMK2;
+import Morpheuss93.PolymorphicTool.blocks.furnaces.tileEntity.TileEntityAlloyFurnace;
 import Morpheuss93.PolymorphicTool.item.dusts.BlueMonomerDust;
 import Morpheuss93.PolymorphicTool.item.dusts.GreenMonomerDust;
 import Morpheuss93.PolymorphicTool.item.monomers.BlueMonomer;
@@ -22,6 +23,7 @@ import Morpheuss93.PolymorphicTool.item.tool.PolymorphicPickaxe;
 import Morpheuss93.PolymorphicTool.item.tool.PolymorphicShears;
 import Morpheuss93.PolymorphicTool.item.tool.PolymorphicShovel;
 import Morpheuss93.PolymorphicTool.item.tool.PolymorphicSword;
+import Morpheuss93.PolymorphicTool.Gui.GuiHandler;
 import Morpheuss93.PolymorphicTool.WorldGenerators.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -34,6 +36,7 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -269,6 +272,19 @@ public class BlockHandler {
 		registry.registerWorldGenerator(new WorldGenaratorBluMonomer());
 		//registry.registerWorldGenerator(new WorldGeneratorGreenMonomer());
 		
+	}
+	
+	public static void setTileEntity(GameRegistry registry){
+		
+		registry.registerTileEntity(TileEntityAlloyFurnace.class, "tileEntityAlloyFurnace");
+		
+		setGui();
+	}
+	
+	public static void setGui(){
+		GuiHandler guiHandler=new GuiHandler();
+
+		NetworkRegistry.instance().registerGuiHandler(Polymorphic.instance, guiHandler);
 	}
 	
 }

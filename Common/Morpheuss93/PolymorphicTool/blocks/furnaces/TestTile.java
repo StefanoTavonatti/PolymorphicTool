@@ -28,7 +28,7 @@ public class TestTile extends TileEntity{
 	      this.NumeroPassaggi=par1.getInteger("NumeroPassaggi");
 	      
 	   }
-	   
+	   //////////////////////rivedere parte 4
 	   /*@Override
 	    public boolean receiveClientEvent(int eventID, int numUsingPlayers) {
 

@@ -3,7 +3,10 @@ package Morpheuss93.PolymorphicTool.blocks.furnaces;
 import java.util.Random;
 
 import Morpheuss93.PolymorphicTool.BlockHandler;
+import Morpheuss93.PolymorphicTool.Polymorphic;
 import Morpheuss93.PolymorphicTool.Reference;
+import Morpheuss93.PolymorphicTool.blocks.furnaces.tileEntity.TileEntityAlloyFurnace;
+import cpw.mods.fml.common.network.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -59,48 +62,88 @@ public class AlloyFurnace extends BlockContainer{
 	
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int metadata){
-		if(side == 0) {
-			return this.blockIcon;//bottomIcon;
-		} else if(side == 1) {
-			return  blockIcon;
-		} else if(side== 2){
-			return iconFront;
-		} else 
+		return side==metadata ? this.iconFront: this.blockIcon;
+	}
+	
+	@Override
+	public void onBlockAdded(World world, int x,int y, int z){
+		super.onBlockAdded(world, x, y, z);
+		
+		this.setDefaultDirection(world, x, y, z);
+	}
+	
+	
+	private void setDefaultDirection(World world, int x, int y, int z)
+	{
+		if(!world.isRemote)
 		{
-			return  blockIcon;
+			int l = world.getBlockId(x, y, z-1);//west
+			int il = world.getBlockId(x, y, z+1);
+			int jl= world.getBlockId(x-1, y, z);
+			int kl= world.getBlockId(x+1, y, z);
+			byte b0=3;
+		         
+			if(Block.opaqueCubeLookup[l] && !Block.opaqueCubeLookup[il]){
+				b0=3;
+			} else if(Block.opaqueCubeLookup[il] && !Block.opaqueCubeLookup[l]){
+				b0=2;
+			}else if(Block.opaqueCubeLookup[kl] && !Block.opaqueCubeLookup[jl]){
+				b0=5;
+			}else if(Block.opaqueCubeLookup[jl] && !Block.opaqueCubeLookup[kl]){
+				b0=5;
+			}
+			
+			
+			
+			world.setBlockMetadataWithNotify(x, y, z, b0, 2);
 		}
 	}
 	
-	private void setDefaultDirection(World par1World, int par2, int par3, int par4)
-	{
-	         if (!par1World.isRemote)
-	         {
-	                 int l = par1World.getBlockId(par2, par3, par4 - 1);
-	                 int i1 = par1World.getBlockId(par2, par3, par4 + 1);
-	                 int j1 = par1World.getBlockId(par2 - 1, par3, par4);
-	                 int k1 = par1World.getBlockId(par2 + 1, par3, par4);
-	                 byte b0 = 3;
-	                 if (Block.opaqueCubeLookup[l] && !Block.opaqueCubeLookup[i1])
-	                 {
-	                         b0 = 3;
-	                 }
-	                 if (Block.opaqueCubeLookup[i1] && !Block.opaqueCubeLookup[l])
-	                 {
-	                         b0 = 2;
-	                 }
-	                 if (Block.opaqueCubeLookup[j1] && !Block.opaqueCubeLookup[k1])
-	                 {
-	                         b0 = 5;
-	                 }
-	                 if (Block.opaqueCubeLookup[k1] && !Block.opaqueCubeLookup[j1])
-	                 {
-	                         b0 = 4;
-	                 }
-	                 par1World.setBlockMetadataWithNotify(par2, par3, par4, b0, 2);
-	         }
+	public TileEntity createNewTileentity(World world){
+		return new TileEntityAlloyFurnace();
 	}
 	
-
+	@Override
+	public void onBlockPlacedBy(World world, int x,int y,int z,EntityLivingBase entity, ItemStack stack){
 	
+		int l=MathHelper.floor_double((double)(entity.rotationYaw *4.0F / 360.0F)+0.5D) & 3;
+		
+		if(l==0){
+			
+			world.setBlockMetadataWithNotify(x, y, z, 2,2);
+			
+		}else if(l==1){
+			
+			world.setBlockMetadataWithNotify(x, y, z, 5,2);
+			
+		}else if(l==2){
+			
+			world.setBlockMetadataWithNotify(x, y, z, 3,2);
+			
+		}else if(l==3){
+			
+			world.setBlockMetadataWithNotify(x, y, z, 4,2);
+		}
+		
+		TileEntity en=world.getBlockTileEntity(x, y, z);
+		
+		/*if(en!=null)
+		{
+			(TilEntityAlloyFurnace)en
+			
+		}*/
+		//if(itemstack.hasDisplayName())
+	}
+
+	@Override
+	public  boolean onBlockActivated(World world,int x,int y,int z,EntityPlayer player,int side,float hitX,float hitY,float hitZ){
+		
+		if(!world.isRemote){
+			FMLNetworkHandler.openGui(player, Polymorphic.instance,Reference.guiIDAlloyFurnace , world, x, y, z);
+		
+		}
+		
+		return true;
+	}
 
 }

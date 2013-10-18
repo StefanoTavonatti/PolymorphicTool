@@ -44,6 +44,7 @@ public class Polymorphic {
 		BlockHandler.setRecipes(new GameRegistry()); 
 		BlockHandler.setToolClass();
 		BlockHandler.setWorldGenerator(new GameRegistry());
+		BlockHandler.setTileEntity(new GameRegistry());
 		
 	}
 	
