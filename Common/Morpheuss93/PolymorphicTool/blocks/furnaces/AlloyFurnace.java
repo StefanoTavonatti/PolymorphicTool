@@ -30,6 +30,7 @@ public class AlloyFurnace extends BlockContainer{
 	
 		private Random furnaceRand = new Random();
 		private final boolean isActive;
+		public static boolean keepInventory;
 		private static boolean keepFurnaceInventory = false;
 	//private final boolean isActive;
 	
@@ -104,7 +105,7 @@ public class AlloyFurnace extends BlockContainer{
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World world, int x,int y,int z,EntityLivingBase entity, ItemStack stack){
+	public void onBlockPlacedBy(World world, int x,int y,int z,EntityLivingBase entity, ItemStack itemstack){
 	
 		int l=MathHelper.floor_double((double)(entity.rotationYaw *4.0F / 360.0F)+0.5D) & 3;
 		
@@ -132,7 +133,14 @@ public class AlloyFurnace extends BlockContainer{
 			(TilEntityAlloyFurnace)en
 			
 		}*/
-		//if(itemstack.hasDisplayName())
+		if(itemstack.hasDisplayName()){
+			//TileEntityAlloyFurnace tl= (TilEntityAlloyFurnace)world.getBlockTileEntity(x, y, z);
+			TileEntity t= world.getBlockTileEntity(x, y, z);
+			TileEntityAlloyFurnace tl=(TileEntityAlloyFurnace)t ;
+			tl.setGuiDysplayName(itemstack.getDisplayName());
+			
+			
+		}
 	}
 
 	@Override
@@ -145,5 +153,46 @@ public class AlloyFurnace extends BlockContainer{
 		
 		return true;
 	}
+
+	public static void updateAlloyFurnaceBlockState(boolean active, World worldObj, int xCoord, int yCoord, int zCoord) {
+		int i = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);	
+		
+		TileEntity tileentity=worldObj.getBlockTileEntity(xCoord, yCoord, zCoord);
+		keepInventory=true;
+		
+		if(active){
+			worldObj.setBlock(xCoord, yCoord, zCoord, BlockHandler.AlloyFurnaceActiveID);
+		}
+		else{
+			worldObj.setBlock(xCoord, yCoord, zCoord, BlockHandler.AlloyFurnaceIdleID);
+			
+		}
+		
+		keepInventory=false;
+		
+		worldObj.setBlockMetadataWithNotify(xCoord, zCoord, zCoord, i, 2);
+		
+		if(tileentity != null){
+			tileentity.validate();
+			worldObj.setBlockTileEntity(xCoord, yCoord, zCoord, tileentity);
+		}
+	}
+	
+	@Override
+	public boolean hasComparatorInputOverride(){
+		return true;
+	}
+	
+	@Override
+	public int getComparatorInputOverride(World world,int x,int y,int z,int i){
+		return Container.calcRedstoneFromInventory((IInventory)world.getBlockTileEntity(x, y, z));
+	}
+	
+	@Override
+	public int idPicked(World world,int x,int y,int z){ //middle mouse creative
+		return BlockHandler.AlloyFurnaceIdle.blockID;
+	}
+	
+	
 
 }

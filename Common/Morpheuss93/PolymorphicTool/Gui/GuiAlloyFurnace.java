@@ -23,8 +23,8 @@ public class GuiAlloyFurnace extends GuiContainer{
 
 	@Override
 	public void drawGuiContainerForegroundLayer(int par1,int par2){
-	//	String name=this.alloyFurnace.isInvNameLocalized() ? this.alloyFurnace.getInvName():"AlloyFurnace";
-		String name="asd";
+		String name=this.alloyFurnace.isInvNameLocalized() ? this.alloyFurnace.getInvName():"AlloyFurnace";
+		//String name="asd";
 		this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize-96+2, 4210752);
 		this.fontRenderer.drawString(name, this.xSize/2-this.fontRenderer.getStringWidth(name)/2, 6,4210752);
 	}

@@ -223,6 +223,8 @@ public class BlockHandler {
 		registry.addName(weaponConversionMatrix, "Weapon Conversion Matrix");
 		registry.addName(polymorphicBow, "Polymorphic Bow");
 		
+		registry.instance().addStringLocalization("conatiner.alloyFurnace","Alloy Furnace");
+		
 		
 		///tab/////
 		registry.instance().addStringLocalization("itemGroup.tabPolymorphic", "en_US", "Polymorphic Tool");
