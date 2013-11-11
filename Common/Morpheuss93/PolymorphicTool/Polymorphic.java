@@ -1,6 +1,6 @@
 package Morpheuss93.PolymorphicTool;
 
-import Morpheuss93.PolymorphicTool.Gui.GuiDamage;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

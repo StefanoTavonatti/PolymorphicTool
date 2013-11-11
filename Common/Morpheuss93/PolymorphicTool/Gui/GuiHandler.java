@@ -18,7 +18,7 @@ public class GuiHandler implements IGuiHandler{
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		
-TileEntity entity= world.getBlockTileEntity(x, y, z);
+		TileEntity entity= world.getBlockTileEntity(x, y, z);
 		
 		if(entity != null){
 			

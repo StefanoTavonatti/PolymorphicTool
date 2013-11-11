@@ -240,9 +240,10 @@ public class BlockHandler {
 	public static void setRecipes(GameRegistry registry)
 	{
 		//registry.addRecipe(new ItemStack(bluMonomerOre),new Object[] {" i ",'i',Block.cobblestone }); 
-		//registry.addShapelessRecipe(new ItemStack(genericPolymer),new Object[] {new ItemStack(greenMonomer),new ItemStack(bluMonomer)});
-		registry.addRecipe(new ItemStack(genericPolymer), new Object[]{"iii","ijj","jj ",'i',bluMonomer,'j',greenMonomer});
-		registry.addShapelessRecipe(new ItemStack(shapeMemoryPolymer), new Object[]{new ItemStack(genericPolymer), new ItemStack(Item.redstone)});
+		registry.addShapelessRecipe(new ItemStack(genericPolymer),new Object[] {new ItemStack(greenMonomer),new ItemStack(bluMonomer)});
+		//registry.addRecipe(new ItemStack(genericPolymer), new Object[]{"iii","ijj","jj ",'i',bluMonomer,'j',greenMonomer});
+		//registry.addShapelessRecipe(new ItemStack(shapeMemoryPolymer), new Object[]{new ItemStack(genericPolymer), new ItemStack(Item.redstone)});
+		registry.addRecipe(new ItemStack(shapeMemoryPolymer),new Object[]{"iii","iri","iii",'i',genericPolymer,'r',Item.redstone}); 
 		registry.addRecipe(new ItemStack(conversionMatrix),new Object[]{"grg","rdr","grg",'d',Item.diamond,'r',Item.redstone,'g',Item.ingotGold});
 		registry.addRecipe(new ItemStack(toolConversionMatrix),new Object[]{"pas","hcf",'p',Item.pickaxeWood,'a',Item.axeWood,'s',Item.shovelWood,'h',Item.hoeWood,'c',conversionMatrix,'f',Item.shears});
 		registry.addRecipe(new ItemStack(polymorphicPickaxe),new Object[]{"ppp","pcp","ppp",'p',shapeMemoryPolymer,'c',toolConversionMatrix});
@@ -285,7 +286,7 @@ public class BlockHandler {
 	
 	public static void setGui(){
 		GuiHandler guiHandler=new GuiHandler();
-
+		System.out.println("SetGui");
 		NetworkRegistry.instance().registerGuiHandler(Polymorphic.instance, guiHandler);
 	}
 	

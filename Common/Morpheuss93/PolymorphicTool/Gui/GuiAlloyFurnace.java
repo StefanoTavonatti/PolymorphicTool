@@ -2,6 +2,7 @@ package Morpheuss93.PolymorphicTool.Gui;
 
 import Morpheuss93.PolymorphicTool.Reference;
 import Morpheuss93.PolymorphicTool.blocks.furnaces.tileEntity.TileEntityAlloyFurnace;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -32,6 +33,6 @@ public class GuiAlloyFurnace extends GuiContainer{
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		
-		
+		//Minecraft.getMinecraft().renderEngine.
 	}
 }

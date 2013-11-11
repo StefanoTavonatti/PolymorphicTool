@@ -38,8 +38,10 @@ public class PolymorphicPickaxe extends ItemPickaxe{
 			return new ItemStack(BlockHandler.polymorphicAxe,1,stack.getItemDamage());
 		else 
 		{
-			//stack.getItem().setDamage(stack, 1991);
-			//player.addChatMessage(""+stack.getItem().getDamage(stack));
+			/*stack.getItem().setDamage(stack, 1991);
+			player.addChatMessage(""+stack.getItem().getDamage(stack));*/
+			
+			
 			
 			return stack;
 		}
@@ -51,7 +53,7 @@ public class PolymorphicPickaxe extends ItemPickaxe{
 		if(itemstack.getItem().getDamage(itemstack)>=1990)
 		{
 			player.addChatMessage("Strumento troppo Danneggiato!!!");
-			
+					
 			return true;
 		}
 		else
@@ -77,5 +79,12 @@ public class PolymorphicPickaxe extends ItemPickaxe{
 		else
 			return super.onBlockDestroyed(par1ItemStack, par2World, par3, par4, par5, par6, par7EntityLivingBase);
 	}*/
+	
+	public boolean getIsRepairable(ItemStack itemStack, ItemStack itemStack2)
+	{
+		//return itemStack2.getItem().itemID== BlockHandler.shapeMemoryPolymerID ? true : super.getIsRepairable(itemStack, itemStack2);
+		//System.out.println(itemStack2.getItem().itemID+"   "+BlockHandler.shapeMemoryPolymerID);
+		return itemStack2.getItem().itemID==(BlockHandler.shapeMemoryPolymerID+256);
+	}
 
 }
