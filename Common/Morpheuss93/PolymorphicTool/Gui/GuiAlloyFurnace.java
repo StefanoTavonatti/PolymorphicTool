@@ -1,5 +1,7 @@
 package Morpheuss93.PolymorphicTool.Gui;
 
+import org.lwjgl.opengl.GL11;
+
 import Morpheuss93.PolymorphicTool.Reference;
 import Morpheuss93.PolymorphicTool.blocks.furnaces.tileEntity.TileEntityAlloyFurnace;
 import net.minecraft.client.Minecraft;
@@ -34,5 +36,13 @@ public class GuiAlloyFurnace extends GuiContainer{
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		
 		//Minecraft.getMinecraft().renderEngine.
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+        // this.mc.getTextureManager().bindTexture(...)
+        this.mc.getTextureManager().bindTexture(texture);
+
+        int xStart = (width - xSize) / 2;
+        int yStart = (height - ySize) / 2;
+        this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
 	}
 }

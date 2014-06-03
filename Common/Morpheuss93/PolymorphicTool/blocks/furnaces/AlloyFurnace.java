@@ -148,6 +148,7 @@ public class AlloyFurnace extends BlockContainer{
 		
 		if(!world.isRemote){
 			FMLNetworkHandler.openGui(player, Polymorphic.instance,Reference.guiIDAlloyFurnace , world, x, y, z);
+			
 		
 		}
 		

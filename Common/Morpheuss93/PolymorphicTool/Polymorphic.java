@@ -20,7 +20,8 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 
 @Mod(modid = Reference.MOD_ID,name=Reference.MOD_NAME,version=Reference.MOD_VERSION)
-@NetworkMod(serverSideRequired=false,clientSideRequired=true,channels={"Polymorphic"}, packetHandler = Morpheuss93.PolymorphicTool.PacketHandler.class)
+@NetworkMod(serverSideRequired=false,clientSideRequired=true)
+//@NetworkMod(serverSideRequired=false,clientSideRequired=true,channels={"Polymorphic"}, packetHandler = Morpheuss93.PolymorphicTool.PacketHandler.class)
 public class Polymorphic {
 	
 	@Instance(Reference.MOD_NAME)

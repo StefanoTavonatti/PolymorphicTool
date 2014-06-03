@@ -12,7 +12,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 public class GuiHandler implements IGuiHandler{
 
 	public GuiHandler(){
-		//NetworkRegistry.instance().registerGuiHandler(Polymorphic.instance, this);
+		NetworkRegistry.instance().registerGuiHandler(Polymorphic.instance, this);
 	}
 	
 	@Override
